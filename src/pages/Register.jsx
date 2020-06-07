@@ -4,9 +4,6 @@ import { useHistory } from 'react-router-dom'
 
 import { registerFail, registerSuccess } from '../redux/actions/authActions'
 
-import Cookies from 'js-cookie'
-
-
 const Register = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -14,7 +11,8 @@ const Register = () => {
   const dispatch = useDispatch()
   const history = useHistory();
 
-  const register = async () => {
+  const register = async (e) => {
+    e.preventDefault()
     const API_URL = process.env.REACT_APP_API_URL
     const data = {
       user: {
@@ -48,9 +46,11 @@ const Register = () => {
 
   return (
     <div>
-      <input type="text" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-      <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-      <button onClick={register}>Submit</button>
+      <form onSubmit={register}>
+        <input type="text" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <input type="submit" value="Envoyer" />
+      </form>
     </div>
   )
 }

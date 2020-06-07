@@ -13,15 +13,8 @@ const Login = () => {
   const dispatch = useDispatch()
   const history = useHistory();
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value)
-  }
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value)
-  }
-
-  const login = async () => {
+  const login = async (e) => {
+    e.preventDefault()
     const API_URL = process.env.REACT_APP_API_URL
     const data = {
       user: {
@@ -55,9 +48,11 @@ const Login = () => {
     <div>
       {!isAuthenticated &&
         <>
-          <input type="text" placeholder="email" value={email} onChange={handleEmailChange} required />
-          <input type="password" placeholder="password" value={password} onChange={handlePasswordChange} required />
-          <button onClick={login}>Submit</button>
+          <form onSubmit={login}>
+            <input type="text" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input type="submit" value="Envoyer" />
+          </form>
         </>
       }
       {isAuthenticated &&
