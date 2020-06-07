@@ -8,9 +8,9 @@ Starter for api project with :
 
 ## Installation
 
-`git clone git@github.com:luca-montaigut/react_boilerplate.git`
+`git clone git@github.com:luca-montaigut/front_myloc.git`
 
-`cd react_boilerplate`
+`cd front_myloc`
 
 `npm install`
 
