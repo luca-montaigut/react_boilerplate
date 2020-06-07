@@ -21,35 +21,34 @@ const Login = () => {
     setPassword(e.target.value)
   }
 
-  const login = () => {
+  const login = async () => {
+    const API_URL = process.env.REACT_APP_API_URL
     const data = {
-      identifier: email,
-      password: password
+      user: {
+        email: email,
+        password: password
+      }
     }
 
-    fetch("https://api-minireseausocial.mathis-dyk.fr/auth/local/", {
+    const response = await fetch(`${API_URL}/login`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-        return response
-      })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response)
-        dispatch(loginSuccess(response))
-        history.push("/");
-      })
-      .catch((error) => {
-        dispatch(loginFail())
-        alert(error)
-      })
+
+    try {
+      const token = await response.headers.get('authorization').split(' ')[1]
+      const user = await response.json()
+      const userToLog = { token, user }
+      dispatch(loginSuccess(userToLog))
+      history.push("/");
+    } catch (error) {
+      console.log(error)
+      alert("Aucun utilisateur correspondant")
+      dispatch(loginFail())
+    }
   }
 
   return (

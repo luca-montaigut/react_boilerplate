@@ -18,30 +18,38 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (Cookies.get('token')) {
-      fetch("https://api-minireseausocial.mathis-dyk.fr/users/me", {
+    const autoLoginUser = async () => {
+      const API_URL = process.env.REACT_APP_API_URL
+      const response = await fetch(`${API_URL}/api/v1/profile`, {
         method: 'get',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${Cookies.get('token')}`
         },
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw Error(response.statusText);
-          }
-          return response
-        })
-        .then((response) => response.json())
-        .then((response) => {
-          console.log(response)
-          dispatch(loadUser(response))
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      try {
+
+        const userToLoad = await response.json()
+        dispatch(loadUser(userToLoad))
+
+      } catch (error) {
+        console.log(error)
+      }
     }
-  }, [])
+    if (Cookies.get('token')) {
+      autoLoginUser()
+    }
+  }, [dispatch])
+
+  const UnAuthRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={props => (
+      isAuthenticated ? (
+        <Redirect to={{ pathname: '/' }} />
+      ) : (
+          <Component {...props} />
+        )
+    )} />
+  )
 
   const AuthRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
@@ -57,10 +65,11 @@ const App = () => {
     <Router basename={process.env.PUBLIC_URL}>
       <Navbar />
       <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
         <Route exact path="/" component={Home} />
+        <UnAuthRoute path="/login" component={Login} />
+        <UnAuthRoute path="/signup" component={Register} />
         <AuthRoute path="/profile" component={Profile} />
+        <Route path="/" component={() => <div>ERREUR 404</div>} />
       </Switch>
     </Router>
 

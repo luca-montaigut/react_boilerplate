@@ -3,7 +3,7 @@ import * as actionTypes from './actionTypes';
 export const registerSuccess = (response) => {
     return {
         type: actionTypes.REGISTER_SUCCESS,
-        token: response.jwt,
+        token: response.token,
         user: response.user,
     }
 }
@@ -24,7 +24,7 @@ export const loadUser = (response) => {
 export const loginSuccess = (response) => {
     return {
         type: actionTypes.LOGIN_SUCCESS,
-        token: response.jwt,
+        token: response.token,
         user: response.user,
     }
 }

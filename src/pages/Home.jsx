@@ -8,11 +8,11 @@ const Home = () => {
 
   return (
     <>
-      <h1>Welcome on My Social Network.</h1>
-      <p>This website is a training to Redux and React. We use auth and routing to create a small social media website.</p>
+      <h1>Welcome on your new website.</h1>
+      <p>This website is ready to become a really cool app !</p>
       {isAuthenticated &&
         <>
-          <h2>fuck {user.username}</h2>
+          <h2>hello {user.email}</h2>
         </>}
     </>
   )

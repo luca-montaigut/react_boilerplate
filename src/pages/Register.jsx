@@ -2,66 +2,54 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import { registerSuccess, registerFail } from '../redux/actions/authActions'
+import { registerFail } from '../redux/actions/authActions'
 
+import Cookies from 'js-cookie'
 
 
 const Register = () => {
-  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   const dispatch = useDispatch()
   const history = useHistory();
 
-  const handleNameChange = (e) => {
-    setName(e.target.value)
-  }
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value)
-  }
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value)
-  }
-
-  const login = () => {
+  const register = async () => {
+    const API_URL = process.env.REACT_APP_API_URL
     const data = {
-      username: name,
-      email: email,
-      password: password
+      user: {
+        email: email,
+        password: password
+      }
     }
 
-    fetch("https://api-minireseausocial.mathis-dyk.fr/auth/local/register", {
+    const response = await fetch(`${API_URL}/signup`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-        return response
-      })
-      .then((response) => response.json())
-      .then((response) => {
-        dispatch(registerSuccess(response))
-      })
-      .catch((error) => {
-        dispatch(registerFail())
-        alert(error)
-      })
+
+    try {
+      const token = await response.headers.get('authorization').split(' ')[1]
+      Cookies.set('token', token)
+    } catch (error) {
+      console.log(error)
+      alert("Erreur d'enregistrement")
+      dispatch(registerFail())
+      return false
+    }
+
+    history.push("/");
+    document.location.reload(true);
   }
 
   return (
     <div>
-      <input type="text" placeholder="username" value={email} onChange={handleNameChange} required />
-      <input type="text" placeholder="email" value={email} onChange={handleEmailChange} required />
-      <input type="password" placeholder="password" value={password} onChange={handlePasswordChange} required />
-      <button onClick={login}>Submit</button>
+      <input type="text" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+      <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+      <button onClick={register}>Submit</button>
     </div>
   )
 }
