@@ -20,5 +20,5 @@ Starter for api project with :
 
 Your website is now running on http://localhost:3000
 
-## 🐰 Auteurs
+## 🐰 Auteur
 Luca Montaigut : https://github.com/luca-montaigut
