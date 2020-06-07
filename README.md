@@ -4,7 +4,7 @@ Starter for api project with :
 - Redux and authentication ready to user with https://github.com/luca-montaigut/api_rails_6_boilerplate
 - React Router with authenticated/unauthenticated routes
 - Cookie Js for handling cookies
-- Environnement variables
+- Environnement variable for api url
 
 ## Installation
 
