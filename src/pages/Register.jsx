@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import { registerFail } from '../redux/actions/authActions'
+import { registerFail, registerSuccess } from '../redux/actions/authActions'
 
 import Cookies from 'js-cookie'
 
@@ -33,7 +33,9 @@ const Register = () => {
 
     try {
       const token = await response.headers.get('authorization').split(' ')[1]
-      Cookies.set('token', token)
+      const user = await response.json()
+      const userToRegister = { token, user }
+      dispatch(registerSuccess(userToRegister))
     } catch (error) {
       console.log(error)
       alert("Erreur d'enregistrement")
@@ -42,7 +44,6 @@ const Register = () => {
     }
 
     history.push("/");
-    document.location.reload(true);
   }
 
   return (
