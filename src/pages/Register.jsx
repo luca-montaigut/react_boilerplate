@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import { registerFail, registerSuccess } from '../redux/actions/authActions'
+import { fetchToRegister } from '../redux/middlewares/authMiddleware';
 
 const Register = () => {
   const [email, setEmail] = useState("")
@@ -12,37 +12,17 @@ const Register = () => {
   const history = useHistory();
 
   const register = async (e) => {
-    e.preventDefault()
-    const API_URL = process.env.REACT_APP_API_URL
     const data = {
       user: {
         email: email,
-        password: password
-      }
-    }
-
-    const response = await fetch(`${API_URL}/signup`, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
+        password: password,
       },
-      body: JSON.stringify(data)
-    })
-
-    try {
-      const token = await response.headers.get('authorization').split(' ')[1]
-      const user = await response.json()
-      const userToRegister = { token, user }
-      dispatch(registerSuccess(userToRegister))
-    } catch (error) {
-      console.log(error)
-      alert("Erreur d'enregistrement")
-      dispatch(registerFail())
-      return false
+    };
+    e.preventDefault();
+    if (await dispatch(fetchToRegister(data))) {
+      history.push("/");
     }
-
-    history.push("/");
-  }
+  };
 
   return (
     <div>

@@ -1,49 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import Cookies from 'js-cookie'
 
+import FlashMessage from "./components/Layout/FlashMessage";
+import Navbar from './components/Layout/Navbar';
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Navbar from './components/Navbar';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import Footer from "./components/Layout/Footer";
 
-import { loadUser } from './redux/actions/authActions'
+import { fetchToLoadUser } from './redux/middlewares/authMiddleware'
 
 const App = () => {
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const [loadReady, setLoadReady] = useState(false);
+  const user = useSelector((state) => state.auth.user);
+  const displayFlash = useSelector((state) => state.flash.display);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const autoLoginUser = async () => {
-      const API_URL = process.env.REACT_APP_API_URL
-      const response = await fetch(`${API_URL}/api/v1/profile`, {
-        method: 'get',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${Cookies.get('token')}`
-        },
-      })
-      try {
-
-        const userToLoad = await response.json()
-        dispatch(loadUser(userToLoad))
-
-      } catch (error) {
-        console.log(error)
+    const landing = async () => {
+      const token = Cookies.get("token");
+      if (!user && token) {
+        await dispatch(fetchToLoadUser(token));
       }
-    }
-    if (Cookies.get('token')) {
-      autoLoginUser()
-    }
-  }, [dispatch])
+      setLoadReady(true);
+    };
+    landing();
+  }, [dispatch, user]);
 
   const UnAuthRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
-      isAuthenticated ? (
+      user ? (
         <Redirect to={{ pathname: '/' }} />
       ) : (
           <Component {...props} />
@@ -53,7 +44,7 @@ const App = () => {
 
   const AuthRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
-      isAuthenticated ? (
+      user ? (
         <Component {...props} />
       ) : (
           <Redirect to={{ pathname: '/login' }} />
@@ -64,13 +55,15 @@ const App = () => {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Navbar />
-      <Switch>
+      {displayFlash && <FlashMessage />}
+      {loadReady && <Switch>
         <Route exact path="/" component={Home} />
         <UnAuthRoute path="/login" component={Login} />
         <UnAuthRoute path="/signup" component={Register} />
         <AuthRoute path="/profile" component={Profile} />
-        <Route path="/" component={() => <div>ERREUR 404</div>} />
-      </Switch>
+        <Route path="*" component={() => <div>ERREUR 404</div>} />
+      </Switch>}
+      <Footer />
     </Router>
 
   )
