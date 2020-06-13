@@ -10,7 +10,7 @@ Starter for api project with :
 
 `git clone git@github.com:luca-montaigut/react_boilerplate.git`
 
-`cd front_myloc`
+`cd react_boilerplate`
 
 `npm install`
 
