@@ -12,7 +12,7 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Footer from "./components/Layout/Footer";
 
-import { fetchToLoadUser } from './redux/middlewares/authMiddleware'
+import { fetchToLoadUser } from './redux/authentication/authMiddleware'
 
 const App = () => {
   const [loadReady, setLoadReady] = useState(false);
@@ -32,7 +32,7 @@ const App = () => {
     landing();
   }, [dispatch, user]);
 
-  const UnAuthRoute = ({ component: Component, ...rest }) => (
+  const NotAuthRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
       user ? (
         <Redirect to={{ pathname: '/' }} />
@@ -58,8 +58,8 @@ const App = () => {
       {displayFlash && <FlashMessage />}
       {loadReady && <Switch>
         <Route exact path="/" component={Home} />
-        <UnAuthRoute path="/login" component={Login} />
-        <UnAuthRoute path="/signup" component={Register} />
+        <NotAuthRoute path="/login" component={Login} />
+        <NotAuthRoute path="/signup" component={Register} />
         <AuthRoute path="/profile" component={Profile} />
         <Route path="*" component={() => <div>ERREUR 404</div>} />
       </Switch>}

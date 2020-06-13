@@ -1,7 +1,7 @@
 
 import { combineReducers } from 'redux';
-import authReducer from './reducers/authReducer';
-import flashReducer from './reducers/flashReducer';
+import authReducer from './authentication/authReducer';
+import flashReducer from './flashmessages/flashReducer';
 
 const RootReducer = combineReducers({
   auth: authReducer,
