@@ -1,10 +1,14 @@
 # React_Boilerplate
 
 Starter for api project with :
-- Redux and authentication ready to user with https://github.com/luca-montaigut/api_rails_6_boilerplate
+- Redux and Redux-thunk
 - React Router with authenticated/unauthenticated routes
 - Cookie Js for handling cookies
+- SASS ready to use
+- Authentication config ready with with https://github.com/luca-montaigut/api_rails_6_boilerplate
 - Environnement variable for api url
+- Pages: Home, Register, Login, Profile
+- Components : Navbar, FlashMessage and Footer
 
 ## Installation
 
