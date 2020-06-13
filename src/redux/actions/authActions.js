@@ -17,6 +17,7 @@ export const registerFail = () => {
 export const loadUser = (response) => {
     return {
         type: actionTypes.LOAD_USER,
+        token: response.token,
         user: response,
     }
 }
