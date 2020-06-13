@@ -1,7 +1,7 @@
 # React_Boilerplate
 
 Starter for api project with :
-- Redux and Rdux-thunk
+- Redux and Redux-thunk
 - React Router with authenticated/unauthenticated routes
 - Cookie Js for handling cookies
 - SASS ready to use
