@@ -18,7 +18,7 @@ Starter for api-based project with :
 
 `npm install`
 
-`echo REACT_APP_API_URL='http://localhost:8080' > .env`
+`echo REACT_APP_API_URL='http://localhost:8080' > .env.local`
 
 `npm start`
 
