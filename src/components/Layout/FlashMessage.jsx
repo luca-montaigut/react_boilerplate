@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFlash } from "../../redux/flashmessages/flashActions";
+import { removeFlash } from "../../redux/actions/flashActions";
 
 const FlashMessage = () => {
   const category = useSelector(state => state.flash.category)

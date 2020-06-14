@@ -1,9 +1,6 @@
-@import "./variables";
-
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html {
@@ -12,15 +9,15 @@ html {
 }
 
 #root {
+  margin-bottom: 15vh; /* .footer height */
   min-height: 100%;
-  margin-bottom: $footer-size; 
 }
 
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: $footer-size;          
+  height: 15vh;    /* #root margin-bottom */        
 }
 
 

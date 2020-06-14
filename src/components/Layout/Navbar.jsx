@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 
-import { logoutSuccess } from "../../redux/authentication/authActions";
+import { logoutSuccess } from "../../redux/actions/authActions";
 
 const Navbar = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
@@ -16,7 +16,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav>
+    <>
       <Link to="/">Home</Link>
       {!isAuthenticated &&
         <>
@@ -29,7 +29,7 @@ const Navbar = () => {
           <Link to="/profile">Profile</Link>
           <button onClick={logout}>Se déconnecter</button>
         </>}
-    </nav>
+    </>
   );
 };
 

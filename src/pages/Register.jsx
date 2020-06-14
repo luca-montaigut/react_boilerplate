@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import { fetchToRegister } from '../redux/authentication/authMiddleware';
+import { fetchToRegister } from '../redux/middlewares/authMiddleware';
 
 const Register = () => {
   const [email, setEmail] = useState("")
