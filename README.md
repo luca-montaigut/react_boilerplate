@@ -9,6 +9,7 @@ Starter for api-based project with :
 - Redux and Redux-thunk (with Redux DevTools)
 - Cookie Js for handling cookies
 - SASS ready to use
+- Easy diplayable flash messages
 - Environnement variable for api url
 - Pages: Home, Register, Login, Profile
 - Components : Navbar, FlashMessage and Footer
