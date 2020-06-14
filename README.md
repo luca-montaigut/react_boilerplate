@@ -1,7 +1,10 @@
 # React_Boilerplate
 
+### Associated API boilerplate : https://github.com/luca-montaigut/api_rails_6_boilerplate
+
+## Content
 Starter for api-based project with :
-- Authentication (Register/Login/Logout) config ready with https://github.com/luca-montaigut/api_rails_6_boilerplate
+- Authentication (Register/Login/Logout) config ready with ![the associated Rails API](https://github.com/luca-montaigut/api_rails_6_boilerplate)
 - React Router with authenticated/notauthenticated routes
 - Redux and Redux-thunk (with Redux DevTools)
 - Cookie Js for handling cookies
