@@ -5,6 +5,8 @@ import { useHistory } from 'react-router-dom'
 import { fetchToRegister } from '../redux/authentication/authMiddleware';
 
 const Register = () => {
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -14,6 +16,8 @@ const Register = () => {
   const register = async (e) => {
     const data = {
       user: {
+        first_name: firstName,
+        last_name: lastName,
         email: email,
         password: password,
       },
@@ -27,6 +31,8 @@ const Register = () => {
   return (
     <div>
       <form onSubmit={register}>
+        <input type="text" placeholder="first name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+        <input type="text" placeholder="last name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
         <input type="text" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         <input type="submit" value="Envoyer" />

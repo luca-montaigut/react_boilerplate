@@ -11,7 +11,7 @@ const Home = () => {
       <p>This website is ready to become a really cool app !</p>
       {currentUser &&
         <>
-          <h2>hello {currentUser.email}</h2>
+          <h2>hello {currentUser.first_name}</h2>
         </>}
     </>
   )
