@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import { fetchToLogin } from '../redux/middlewares/authMiddleware';
+import { fetchToLogin } from '../redux/authentication/authMiddleware';
 
 
 const Login = () => {

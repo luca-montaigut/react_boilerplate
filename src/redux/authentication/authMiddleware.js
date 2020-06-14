@@ -1,6 +1,6 @@
-import * as authActions from "../actions/authActions";
+import * as authActions from "./authActions";
 
-import { displaySuccess, displayError } from "./flashMiddleware";
+import { displaySuccess, displayError } from "../flashmessages/flashMiddleware";
 
 export const fetchToRegister = (data) => {
   return async (dispatch) => {

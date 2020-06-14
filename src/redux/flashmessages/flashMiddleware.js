@@ -1,4 +1,4 @@
-import * as flashActions from "../actions/flashActions"
+import * as flashActions from "./flashActions"
 
 export const displaySuccess = (message) => {
   return (dispatch) => {
