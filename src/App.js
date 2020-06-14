@@ -16,7 +16,7 @@ import { fetchToLoadUser } from './redux/authentication/authMiddleware'
 
 const App = () => {
   const [loadReady, setLoadReady] = useState(false);
-  const user = useSelector((state) => state.auth.user);
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const displayFlash = useSelector((state) => state.flash.display);
 
   const dispatch = useDispatch();
@@ -24,17 +24,17 @@ const App = () => {
   useEffect(() => {
     const landing = async () => {
       const token = Cookies.get("token");
-      if (!user && token) {
+      if (!currentUser && token) {
         await dispatch(fetchToLoadUser(token));
       }
       setLoadReady(true);
     };
     landing();
-  }, [dispatch, user]);
+  }, [dispatch, currentUser]);
 
   const NotAuthRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
-      user ? (
+      currentUser ? (
         <Redirect to={{ pathname: '/' }} />
       ) : (
           <Component {...props} />
@@ -44,7 +44,7 @@ const App = () => {
 
   const AuthRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
-      user ? (
+      currentUser ? (
         <Component {...props} />
       ) : (
           <Redirect to={{ pathname: '/login' }} />

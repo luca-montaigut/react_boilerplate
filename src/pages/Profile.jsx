@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 
 
 const Profile = () => {
-  const user = useSelector(state => state.auth.user);
-  const { id, email } = user
+  const currentUser = useSelector(state => state.auth.currentUser);
+  const { id, email } = currentUser
 
   return (
     <>

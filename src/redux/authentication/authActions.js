@@ -17,7 +17,8 @@ export const registerFail = () => {
 export const loadUser = (response) => {
     return {
         type: actionTypes.LOAD_USER,
-        user: response,
+        token: response.token,
+        user: response.user,
     }
 }
 
@@ -38,5 +39,11 @@ export const loginFail = () => {
 export const logoutSuccess = () => {
     return {
         type: actionTypes.LOGOUT_SUCCESS,
+    }
+}
+
+export const logoutFail = () => {
+    return {
+        type: actionTypes.LOGOUT_FAIL,
     }
 }
