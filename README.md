@@ -8,7 +8,7 @@ Starter for api project with :
 - Authentication config ready with with https://github.com/luca-montaigut/api_rails_6_boilerplate
 - Environnement variable for api url
 - Pages: Home, Register, Login, Profile
-- Components : Navbar, FlashMessage and Footer
+- Components : NavBar, FlashMessage and Footer
 
 ## Installation
 
