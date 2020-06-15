@@ -22,13 +22,13 @@ export const fetchToRegister = (data) => {
       const user = await response.json();
       const userToRegister = { token, user };
       dispatch(authActions.registerSuccess(userToRegister));
-      dispatch(displaySuccess("Inscription réussie"));
       Cookies.set("token", token);
+      dispatch(displaySuccess("Inscription réussie"));
     } catch (error) {
       console.log(error);
-      dispatch(displayError("Erreur d'enregistrement"));
       dispatch(authActions.registerFail());
       Cookies.remove("token");
+      dispatch(displayError("Erreur d'enregistrement"));
       return false;
     }
   };
@@ -52,14 +52,14 @@ export const fetchToLogin = (data) => {
       const token = await response.headers.get("authorization").split(" ")[1];
       const user = await response.json();
       const userToLog = { token, user };
-      dispatch(displaySuccess("Connexion réussie"));
       dispatch(authActions.loginSuccess(userToLog));
       Cookies.set("token", token);
+      dispatch(displaySuccess("Connexion réussie"));
     } catch (error) {
       console.log(error);
-      dispatch(displayError("Aucun utilisateur correspondant"));
       dispatch(authActions.loginFail());
       Cookies.remove("token");
+      dispatch(displayError("Aucun utilisateur correspondant"));
       return false;
     }
   };
@@ -105,12 +105,12 @@ export const fetchToLogout = (token) => {
         throw Error(response.statusText);
       }
       dispatch(authActions.logoutSuccess());
-      dispatch(displaySuccess("Déconnexion réussie"));
       Cookies.remove("token");
+      dispatch(displaySuccess("Déconnexion réussie"));
     } catch (error) {
       console.log(error);
-      dispatch(displayError("Un problème est survenu, merci de réessayer ultérieurement"));
       dispatch(authActions.logoutFail());
+      dispatch(displayError("Un problème est survenu, merci de réessayer ultérieurement"));
       return false
     }
   };
